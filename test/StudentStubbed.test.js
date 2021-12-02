@@ -27,13 +27,15 @@ describe("Testing the enroll", () => {
       studentObj,
       "_getCourseDetailsFromExternalWebService"
     );
-    stub.returns(100);
+    stub
+      .returns(100)
+      .calledWith("https://jsonplaceholder.typicode.com/posts/1");
 
     //call the real service
     //THis should insert a record to the courses array
-    studentObj.enroll("java");
+    const actual = studentObj.enroll();
 
-    expect(studentObj.courses).to.include(100);
+    expect(actual).to.be.equal(100);
     //expect([1, 2, 3]).to.not.include(4);
   });
 });

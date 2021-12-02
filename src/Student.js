@@ -1,3 +1,5 @@
+const http = require("./http");
+
 class Student {
   constructor(firstName, lastName) {
     this.firstName = firstName;
@@ -7,13 +9,27 @@ class Student {
   }
 
   enroll(courseName) {
-    let _courseDtls = this._getCourseDetailsFromExternalWebService(courseName);
-    this.courses.push(_courseDtls);
+    //gets the courses from the API call!
+    return this._getCourseDetailsFromExternalWebService(courseName);
   }
 
-  _getCourseDetailsFromExternalWebService(courseName) {
-    //do a call to POST data
-    return;
+  ReEnroll(courseName) {
+    //gets the courses from the API call!
+    this.enroll(courseName);
+  }
+
+  _getCourseDetailsFromExternalWebService(
+    endPoint = "https://jsonplaceholder.typicode.com/posts/1"
+  ) {
+    return http
+      .fetchAPI(endPoint)
+      .then((result) => {
+        this.courses.push(result);
+      })
+      .catch(function (error) {
+        // handle error
+        return error;
+      });
   }
 
   startOrientation(buddy) {
