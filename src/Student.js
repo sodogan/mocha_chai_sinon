@@ -18,9 +18,7 @@ class Student {
     this.enroll(courseName);
   }
 
-  _getCourseDetailsFromExternalWebService(
-    endPoint = "https://jsonplaceholder.typicode.com/posts/1"
-  ) {
+  _getCourseDetailsFromExternalWebService(endPoint) {
     return http
       .fetchAPI(endPoint)
       .then((result) => {

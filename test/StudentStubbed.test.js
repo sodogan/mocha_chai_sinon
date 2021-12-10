@@ -20,22 +20,23 @@ const expect = chai.expect;
 
 */
 
-describe("Testing the enroll", () => {
+describe("Testing the enroll with Stubbing", () => {
   it("How to stub the external API call", () => {
     let studentObj = new Student("solen", "dogan");
     const stub = sinon.stub(
       studentObj,
       "_getCourseDetailsFromExternalWebService"
     );
-    stub
-      .returns(100)
-      .calledWith("https://jsonplaceholder.typicode.com/posts/1");
+    stub.withArgs("https://jsonplaceholder.typicode.com/posts/1").returns(100);
 
     //call the real service
     //THis should insert a record to the courses array
-    const actual = studentObj.enroll();
+    const actual = studentObj.enroll(
+      "https://jsonplaceholder.typicode.com/posts/1"
+    );
 
     expect(actual).to.be.equal(100);
+
     //expect([1, 2, 3]).to.not.include(4);
   });
 });
